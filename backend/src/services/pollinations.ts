@@ -1,5 +1,34 @@
 import axios from 'axios';
 
+// Retry configuration
+const MAX_RETRIES = 3;
+const INITIAL_RETRY_DELAY = 1000; // 1 second
+
+// Helper function for exponential backoff retry
+async function retryWithBackoff<T>(
+  fn: () => Promise<T>,
+  retries = MAX_RETRIES,
+  delay = INITIAL_RETRY_DELAY
+): Promise<T> {
+  try {
+    return await fn();
+  } catch (error: any) {
+    // Check if error is retryable (502, 503, 429, network errors)
+    const isRetryable = 
+      error.response?.status === 502 || // Bad Gateway
+      error.response?.status === 503 || // Service Unavailable
+      error.response?.status === 429 || // Too Many Requests
+      error.code === 'ECONNRESET' ||    // Connection reset
+      error.code === 'ETIMEDOUT';        // Timeout
+
+    if (retries > 0 && isRetryable) {
+      await new Promise(resolve => setTimeout(resolve, delay));
+      return retryWithBackoff(fn, retries - 1, delay * 2);
+    }
+    throw error;
+  }
+}
+
 // Pollinations AI usage: Text generation endpoint
 export async function generateQuestion(topic: string, difficulty: string, examPattern: string, questionIndex?: number) {
   try {
@@ -60,10 +89,13 @@ export async function generateQuestion(topic: string, difficulty: string, examPa
     if (process.env.POLLINATIONS_TOKEN) {
       headers['Authorization'] = `Bearer ${process.env.POLLINATIONS_TOKEN}`;
     }
-
-    console.log('Sending payload to Pollinations:', JSON.stringify(payload).substring(0, 1000));
-    const response = await axios.post('https://text.pollinations.ai/openai', payload, {
-      headers
+    
+    // Make API call with retry logic for transient failures
+    const response = await retryWithBackoff(async () => {
+      return axios.post('https://text.pollinations.ai/openai', payload, {
+        headers,
+        timeout: 60000 // 60 second timeout
+      });
     });
 
     if (!response.data || !response.data.choices || !response.data.choices[0]) {
@@ -71,7 +103,6 @@ export async function generateQuestion(topic: string, difficulty: string, examPa
     }
 
     const text = response.data.choices[0].message.content;
-    console.log('Raw response from Pollinations AI API:', text?.substring(0, 100) + '...');
 
     try {
       let jsonText = text || '';
@@ -99,8 +130,6 @@ export async function generateQuestion(topic: string, difficulty: string, examPa
         }
       }
 
-      console.log('Extracted JSON:', jsonText?.substring(0, 100) + '...');
-
       return JSON.parse(jsonText);
     } catch (parseError) {
       console.error('Failed to parse Pollinations response:', text);
@@ -123,6 +152,18 @@ export async function generateQuestion(topic: string, difficulty: string, examPa
         console.error('Detailed error:', error?.message || error);
       }
 
-      throw new Error(`Question generation failed: ${error?.message || 'Unknown error'}`);
+      // Provide user-friendly error messages
+      let userMessage = 'Question generation failed';
+      if (error.response?.status === 502 || error.response?.status === 503) {
+        userMessage = 'The AI service is temporarily unavailable. Please try again in a moment.';
+      } else if (error.response?.status === 429) {
+        userMessage = 'Rate limit exceeded. Please wait a few seconds and try again.';
+      } else if (error.code === 'ETIMEDOUT') {
+        userMessage = 'Request timed out. The AI service may be overloaded. Please try again.';
+      } else if (error.message?.includes('Invalid response format')) {
+        userMessage = 'The AI returned an invalid response. Please try again.';
+      }
+
+      throw new Error(userMessage);
   }
 }

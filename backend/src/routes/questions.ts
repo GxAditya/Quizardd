@@ -18,9 +18,6 @@ router.post('/generate', async (req, res) => {
                                     topic.includes(',') || 
                                     topic.includes('/') || 
                                     topic.includes('&');
-                                    
-    console.log(`Topic "${topic}" might contain multiple subjects: ${potentialSubjectsInTopic}`);
-    console.log(`Exam Name: ${examName || 'Not specified'}`);
     
     const questions = [];
     // Generate questions sequentially
@@ -52,9 +49,16 @@ router.post('/generate', async (req, res) => {
     });
   } catch (error) {
     console.error('Question generation error:', error);
-    res.status(500).json({ 
-      error: 'Failed to generate question',
-      details: error instanceof Error ? error.message : 'Unknown error'
+    
+    // Return user-friendly error message
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+    const isServiceError = errorMessage.includes('temporarily unavailable') || 
+                          errorMessage.includes('Rate limit') ||
+                          errorMessage.includes('timed out');
+    
+    res.status(isServiceError ? 503 : 500).json({ 
+      error: errorMessage,
+      retryable: isServiceError
     });
   }
 });

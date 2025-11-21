@@ -57,20 +57,19 @@ const Index = () => {
             <div className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-100 to-orange-100 px-4 py-2 rounded-full border border-amber-200">
               <Lightbulb className="w-4 h-4 text-amber-700" />
               <span className="text-sm font-semibold bg-gradient-to-r from-amber-700 to-orange-700 bg-clip-text text-transparent">
-                Next Generation Test Platform
+                Welcome to Quizardd
               </span>
             </div>
             
             <h1 className="text-5xl md:text-6xl font-black tracking-tight">
               <span className="bg-gradient-to-r from-amber-600 via-orange-600 to-rose-600 bg-clip-text text-transparent">
-                Master Any Subject
+                Unleash Your Inner Quiz Whiz 
               </span>
-              <br />
-              <span className="text-gray-800">with Intelligent Tests</span>
+              <span className="text-gray-800"> with Quizardd's Smart Test Magic</span>
             </h1>
             
-            <p className="text-xl text-gray-700 max-w-2xl mx-auto">
-              Generate unlimited custom tests, practice with interactive challenges, and get detailed insights to improve your knowledge.
+            <p className="text-xl text-gray-700 max-w-2xl mx-auto font-semibold">
+              Create, conquer, and master any subject with AI-powered quizzes. Challenge yourself, track your progress, and become a true Quizardd!
             </p>
 
             <div className="flex flex-wrap gap-4 justify-center pt-4">
