@@ -1,6 +1,6 @@
 
 
-import TestForm from "@/components/TestForm";
+import TestForm from "../components/TestForm";
 import { Lightbulb, Book, Clock, BarChart3, Zap, Brain, Target } from 'lucide-react';
 
 const Index = () => {
