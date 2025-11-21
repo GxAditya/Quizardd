@@ -1,24 +1,16 @@
 import express from 'express';
-import { generateQuestion } from '../services/gemini';
+import { generateQuestion } from '../services/pollinations';
 
 const router = express.Router();
 
 router.post('/generate', async (req, res) => {
   try {
-    const { topic, difficulty, questionCount = 1 } = req.body;
+    const { topic, difficulty, questionCount = 1, examName = '' } = req.body;
     
     if (!topic || !difficulty) {
       return res.status(400).json({ error: 'Topic and difficulty are required' });
     }
 
-    // For a single question request
-    if (questionCount === 1) {
-      const question = await generateQuestion(topic, difficulty, 0);
-      return res.json(question);
-    }
-    
-    // For multiple questions (test generation)
-    const questions = [];
     const validQuestionCount = Math.min(Math.max(1, questionCount), 10); // Limit to 10 questions max
     
     // Determine if the topic might contain multiple subjects
@@ -28,7 +20,9 @@ router.post('/generate', async (req, res) => {
                                     topic.includes('&');
                                     
     console.log(`Topic "${topic}" might contain multiple subjects: ${potentialSubjectsInTopic}`);
+    console.log(`Exam Name: ${examName || 'Not specified'}`);
     
+    const questions = [];
     // Generate questions sequentially
     for (let i = 0; i < validQuestionCount; i++) {
       try {
@@ -39,7 +33,7 @@ router.post('/generate', async (req, res) => {
           currentTopic = `${topic} (Please choose a different subject than previous questions for variety)`;
         }
         
-        const question = await generateQuestion(currentTopic, difficulty, i);
+        const question = await generateQuestion(currentTopic, difficulty, examName, i);
         questions.push(question);
       } catch (err) {
         console.error(`Error generating question ${i+1}:`, err);
@@ -49,9 +43,11 @@ router.post('/generate', async (req, res) => {
       }
     }
     
+    // Always return consistent structure
     res.json({
       title: `${topic} Test (${difficulty} difficulty)`,
       subject: topic,
+      examName: examName || '',
       questions: questions
     });
   } catch (error) {

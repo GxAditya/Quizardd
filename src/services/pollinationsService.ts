@@ -11,33 +11,31 @@ export interface Question {
 export interface Test {
   title: string;
   subject: string;
+  examName?: string;
   questions: Question[];
 }
 
-// You should replace this with your actual Gemini API key in a real backend implementation
-// This is a placeholder for demonstration purposes
-const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY || '';
-
-export async function generateTest(subject: string, questionCount: number): Promise<Test> {
+// Frontend calls local backend POST /api/questions/generate which now uses Pollinations
+export async function generateTest(subject: string, questionCount: number, examName?: string): Promise<Test> {
   try {
-    // Limit request to a reasonable number
     const validQuestionCount = Math.min(Math.max(1, questionCount), 10);
-    
     if (validQuestionCount < questionCount) {
       toast.info(`Note: Currently limited to generating a maximum of 10 questions at once`);
     }
-    
-    toast.info(`Generating ${validQuestionCount} questions about ${subject}...`);
-    
-    const response = await fetch('http://localhost:3000/api/questions/generate', {
+
+    const examText = examName ? ` for ${examName}` : '';
+    toast.info(`Generating ${validQuestionCount} questions about ${subject}${examText}...`);
+
+    const response = await fetch('http://localhost:3001/api/questions/generate', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         topic: subject,
-        difficulty: 'medium', // You can make this a parameter if needed
-        questionCount: validQuestionCount
+        difficulty: 'medium',
+        questionCount: validQuestionCount,
+        examName: examName || ''
       })
     });
 
@@ -49,31 +47,25 @@ export async function generateTest(subject: string, questionCount: number): Prom
     }
 
     const data = await response.json();
-    
-    // Transform the response to match the expected Test format if needed
     const testData: Test = {
       title: data.title || `${subject} Test`,
       subject: data.subject || subject,
+      examName: data.examName || '',
       questions: Array.isArray(data.questions) ? data.questions : [data]
     };
-    
-    // Make sure we have questions
+
     if (!testData.questions || testData.questions.length === 0) {
       toast.error('No questions were generated');
       throw new Error('No questions were generated');
     }
-    
-    // Normalize question format (handle both answer and correctAnswer fields)
+
     testData.questions = testData.questions.map(q => {
       if (q.correctAnswer && !q.answer) {
-        return {
-          ...q,
-          answer: q.correctAnswer
-        };
+        return { ...q, answer: q.correctAnswer };
       }
       return q;
     });
-    
+
     toast.success(`Generated ${testData.questions.length} questions successfully`);
     return testData;
   } catch (error) {

@@ -1,6 +1,6 @@
-# QuestionBuilder
+# Quizardd
 
-A modern quiz/test generator application that uses Gemini AI to create educational questions on any subject.
+A modern quiz/test generator application that uses Pollinations.AI to create educational questions on any subject.
 
 ## Features
 
@@ -22,14 +22,14 @@ A modern quiz/test generator application that uses Gemini AI to create education
 
 ### Backend
 - Node.js with Express
-- Google Gemini AI API for question generation
+- Pollinations.AI for text generation and question creation
 - TypeScript for type safety
 
 ## Getting Started
 
 ### Prerequisites
 - Node.js 18+ and npm
-- Google Gemini API key
+- Pollinations.AI usage does not require a key for low-volume testing; register at auth.pollinations.ai for higher limits and bearer tokens
 
 ### Installation
 
@@ -51,20 +51,19 @@ npm install
 cd ..
 ```
 
-4. Set up environment variables
-   - Create a `.env` file in the root directory for frontend variables
-   - Create a `.env` file in the `backend` directory for backend variables
-   - Add your Gemini API key to both files:
+4. Set up environment variables (optional)
+   - For anonymous testing you do not need tokens — Pollinations will accept referrer-based requests.
+   - To use a Bearer token for higher rate limits sign up at `auth.pollinations.ai` and add it to backend `.env` as `POLLINATIONS_TOKEN`.
 
-Root `.env` file:
+Root `.env` file (optional):
 ```
-VITE_GEMINI_API_KEY=your_api_key_here
+// No token required for anonymous requests
 ```
 
-Backend `.env` file:
+Backend `.env` file (optional):
 ```
 PORT=3000
-GEMINI_API_KEY=your_api_key_here
+POLLINATIONS_TOKEN=your_token_here
 ```
 
 ### Running the Application
@@ -101,6 +100,6 @@ MIT
 
 ## Acknowledgements
 
-- Google Gemini AI for powering the question generation
+- Pollinations.AI for powering the question generation
 - shadcn/ui for the beautiful component library
 - The open-source community for all the amazing tools that made this project possible

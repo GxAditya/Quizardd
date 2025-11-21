@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import TestPreview from "@/components/TestPreview";
-import { Test } from '@/services/geminiService';
+import { Test } from '@/services/pollinationsService';
 
 const TestPreviewPage = () => {
   const location = useLocation();
@@ -30,7 +30,7 @@ const TestPreviewPage = () => {
           <Button 
             variant="ghost" 
             onClick={() => navigate('/')}
-            className="space-x-2 button-animation text-lavender-700 hover:text-lavender-800 hover:bg-lavender-50 print:hidden"
+            className="space-x-2 button-animation text-amber-700 hover:text-amber-800 hover:bg-amber-50 print:hidden"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="m15 18-6-6 6-6"/>
@@ -42,13 +42,13 @@ const TestPreviewPage = () => {
         </div>
       </main>
       
-      <footer className="py-6 border-t border-lavender-100 bg-white/30 backdrop-blur-sm mt-auto print:hidden">
+      <footer className="py-6 border-t border-amber-100 bg-white/30 backdrop-blur-sm mt-auto print:hidden">
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-          <p className="text-sm text-lavender-600">
-            TestGen — AI-powered test generation
+          <p className="text-sm text-amber-600">
+            Quizardd — AI-powered test generation
           </p>
-          <p className="text-sm text-lavender-600">
-            Powered by Gemini AI
+          <p className="text-sm text-amber-600">
+            Powered by Pollinations.AI
           </p>
         </div>
       </footer>

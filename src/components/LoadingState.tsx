@@ -43,22 +43,22 @@ const LoadingState = ({ subject, count }: LoadingStateProps) => {
     <div className="w-full max-w-lg mx-auto h-[400px] flex flex-col items-center justify-center animate-fade-in">
       <div className="w-full text-center space-y-6">
         <div className="space-y-2">
-          <h3 className="text-2xl font-medium tracking-tight text-lavender-800">Generating Your Test</h3>
-          <p className="text-lavender-600">
+          <h3 className="text-2xl font-medium tracking-tight text-amber-700">Generating Your Test</h3>
+          <p className="text-gray-700">
             Creating {count} {count === 1 ? 'question' : 'questions'} about {subject}
           </p>
         </div>
         
-        <div className="relative w-64 h-1.5 bg-lavender-100 mx-auto rounded-full overflow-hidden">
+        <div className="relative w-64 h-1.5 bg-amber-100/60 mx-auto rounded-full overflow-hidden" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={progress} aria-label="Generating test progress">
           <div 
-            className="absolute top-0 left-0 h-full bg-lavender-500 rounded-full"
+            className="absolute top-0 left-0 h-full bg-gradient-to-r from-amber-500 to-orange-500 rounded-full"
             style={{ width: `${progress}%`, transition: "width 0.5s ease" }}
           />
         </div>
         
-        <p className="text-sm animate-pulse text-lavender-700">{message}</p>
+        <p className="text-sm animate-pulse text-amber-700" aria-live="polite">{message}</p>
         
-        <div className="w-12 h-12 mx-auto text-lavender-600">
+        <div className="w-12 h-12 mx-auto text-amber-500">
           <svg 
             className="animate-spin" 
             xmlns="http://www.w3.org/2000/svg" 

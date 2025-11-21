@@ -5,6 +5,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
+import TestPage from "./pages/TestPage";
+import ResultsPage from "./pages/ResultsPage";
 import TestPreviewPage from "./pages/TestPreviewPage";
 import NotFound from "./pages/NotFound";
 
@@ -21,6 +23,8 @@ function App() {
           <Sonner />
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/test" element={<TestPage />} />
+            <Route path="/results" element={<ResultsPage />} />
             <Route path="/preview" element={<TestPreviewPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
