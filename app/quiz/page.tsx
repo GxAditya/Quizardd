@@ -110,48 +110,29 @@ export default function QuizPage() {
                 />
             </div>
 
-            {/* Header */}
-            <header className="fixed top-6 left-1/2 -translate-x-1/2 w-[95%] max-w-4xl z-50 px-8 py-4 flex justify-between items-center bg-background/70 backdrop-blur-xl border border-border/40 rounded-2xl shadow-2xl">
-                <div className="w-full mx-auto flex items-center justify-between">
-                    <Link href="/" className="group flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-card border border-border/50 flex items-center justify-center group-hover:border-primary/50 group-hover:shadow-[0_0_15px_rgba(var(--primary),0.2)] transition-all duration-300">
-                            <ArrowLeft className="w-5 h-5 text-foreground group-hover:text-primary transition-colors duration-300 group-hover:-translate-x-0.5" />
-                        </div>
-                        <img src="/Quizardd.png" alt="Quizardd Icon" className="w-7 h-7 object-contain group-hover:scale-110 group-hover:rotate-6 transition-transform drop-shadow-[0_0_10px_rgba(var(--primary),0.5)]" />
-                        <span className="font-display font-bold text-xl tracking-tight hidden sm:block">Quizardd</span>
-                    </Link>
+            {/* Simple Back Button */}
+            <div className="fixed top-8 left-8 z-50">
+                <Link href="/" className="group flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-background/50 backdrop-blur-md border border-border/50 flex items-center justify-center hover:border-primary/50 hover:bg-background transition-all duration-300 shadow-lg">
+                        <ArrowLeft className="w-5 h-5 text-foreground group-hover:text-primary transition-colors duration-300 group-hover:-translate-x-0.5" />
+                    </div>
+                </Link>
+            </div>
 
-                    {quizData && !isFinished && (
-                        <div className="flex items-center gap-3 sm:gap-6">
-                            <div className="flex flex-col items-end">
-                                <span className="text-[10px] uppercase font-bold text-muted-foreground tracking-widest mb-1">Progress</span>
-                                <div className="flex items-center gap-2">
-                                    <span className="text-sm font-bold text-foreground">{currentQuestionIdx + 1}</span>
-                                    <span className="text-xs text-muted-foreground">/ {quizData.questions.length}</span>
-                                </div>
-                            </div>
-                            <div className="h-8 w-px bg-border/50"></div>
-                            <div className="hidden sm:flex flex-col items-start">
-                                <span className="text-[10px] uppercase font-bold text-muted-foreground tracking-widest mb-1">Score</span>
-                                <div className="flex items-center gap-1.5 text-primary">
-                                    <TrendingUp className="w-4 h-4" />
-                                    <span className="text-sm font-bold">{score}</span>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                </div>
-            </header>
 
-            <main className="flex-1 flex flex-col items-center justify-center p-6 pt-32 pb-20 relative z-10 w-full max-w-3xl mx-auto">
+            <main className="flex-1 flex flex-col items-center justify-center p-6 pt-20 pb-10 relative z-10 w-full max-w-2xl mx-auto">
                 {quizData && !isFinished && (
-                    <div className="w-full absolute top-24 left-0 px-6 max-w-3xl mx-auto inset-x-0">
-                        <div className="h-1.5 w-full bg-border/50 rounded-full overflow-hidden">
+                    <div className="w-full absolute top-12 left-0 px-6 max-w-2xl mx-auto inset-x-0">
+                        <div className="flex justify-between items-center mb-2 px-1">
+                            <span className="text-[10px] uppercase font-black text-muted-foreground tracking-[0.2em]">Question {currentQuestionIdx + 1}/{quizData.questions.length}</span>
+                            <span className="text-[10px] uppercase font-black text-primary tracking-[0.2em]">Score: {score}</span>
+                        </div>
+                        <div className="h-1 w-full bg-border/30 rounded-full overflow-hidden">
                             <motion.div
                                 initial={{ width: 0 }}
-                                animate={{ width: `${((currentQuestionIdx) / quizData.questions.length) * 100}%` }}
+                                animate={{ width: `${((currentQuestionIdx + 1) / quizData.questions.length) * 100}%` }}
                                 transition={{ duration: 0.5 }}
-                                className="h-full bg-linear-to-r from-primary to-accent rounded-full"
+                                className="h-full bg-primary rounded-full"
                             />
                         </div>
                     </div>
@@ -269,10 +250,11 @@ export default function QuizPage() {
                                 exit="exit"
                                 className="space-y-6 w-full"
                             >
-                                <motion.div variants={fadeUpVariant} className="bg-card/80 backdrop-blur-xl rounded-xl p-8 md:p-12 shadow-2xl shadow-primary/5 border border-border/50">
-                                    <h2 className="text-2xl md:text-3xl lg:text-4xl font-display font-bold leading-tight mb-10 text-foreground">
+                                <motion.div variants={fadeUpVariant} className="bg-card/80 backdrop-blur-xl rounded-xl p-6 md:p-8 shadow-2xl border border-border/50">
+                                    <h2 className="text-xl md:text-2xl font-display font-black leading-tight mb-6 text-foreground">
                                         {quizData.questions[currentQuestionIdx].question}
                                     </h2>
+
 
                                     <div className="grid grid-cols-1 gap-4">
                                         {quizData.questions[currentQuestionIdx].options.map((opt, idx) => {
@@ -300,11 +282,11 @@ export default function QuizPage() {
                                                     disabled={hasAnswered}
                                                     onClick={() => handleSelectAnswer(idx)}
                                                     className={cn(
-                                                        "w-full text-left p-6 md:p-7 rounded-lg flex items-center justify-between transition-all duration-300 relative border-2",
+                                                        "w-full text-left p-4 md:p-5 rounded-lg flex items-center justify-between transition-all duration-300 relative border-2",
                                                         btnClass
                                                     )}
                                                 >
-                                                    <span className={cn("text-lg font-medium pr-8", hasAnswered && isCorrect && "font-bold text-emerald-800 dark:text-emerald-400")}>{opt}</span>
+                                                    <span className={cn("text-base font-medium pr-6", hasAnswered && isCorrect && "font-bold")}>{opt}</span>
                                                     {icon}
                                                 </button>
                                             );
@@ -316,31 +298,29 @@ export default function QuizPage() {
                                 <AnimatePresence>
                                     {hasAnswered && (
                                         <motion.div
-                                            initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                                            animate={{ opacity: 1, y: 0, scale: 1 }}
-                                            transition={{ type: "spring", bounce: 0.4 }}
-                                            className="bg-primary/5 backdrop-blur-3xl rounded-xl p-8 md:p-10 border border-primary/20 shadow-2xl relative overflow-hidden"
+                                            initial={{ opacity: 0, y: 20 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            className="bg-primary/5 backdrop-blur-3xl rounded-xl p-6 border border-primary/20 shadow-xl relative overflow-hidden"
                                         >
-                                            <div className="absolute top-0 left-0 w-2 h-full bg-linear-to-b from-primary to-accent"></div>
-                                            <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
-                                                <div className="flex-1">
-                                                    <div className="flex items-center gap-2 mb-3">
-                                                        <span className="text-xs font-bold uppercase tracking-[0.2em] text-primary">Explanation</span>
-                                                    </div>
-                                                    <p className="text-xl md:text-2xl font-medium text-foreground leading-relaxed">
+                                            <div className="flex flex-col gap-4">
+                                                <div>
+                                                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-2 block">Explanation</span>
+                                                    <p className="text-base md:text-lg font-medium text-foreground/90 leading-snug">
                                                         {quizData.questions[currentQuestionIdx].explanation}
                                                     </p>
                                                 </div>
-                                                <button
-                                                    onClick={nextQuestion}
-                                                    className="shrink-0 bg-foreground text-background px-10 py-5 rounded-lg font-bold text-lg hover:bg-foreground/90 transition-all active:scale-95 shadow-[0_10px_30px_rgba(0,0,0,0.1)] group flex items-center justify-center gap-2"
-                                                >
-                                                    {currentQuestionIdx < quizData.questions.length - 1 ? (
-                                                        <>Next Question <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" /></>
-                                                    ) : (
-                                                        <>View Final Score <Trophy className="w-5 h-5 group-hover:scale-110 transition-transform text-yellow-400" /></>
-                                                    )}
-                                                </button>
+                                                <div className="flex justify-end">
+                                                    <button
+                                                        onClick={nextQuestion}
+                                                        className="bg-foreground text-background px-6 py-3 rounded-lg font-bold text-sm hover:scale-105 transition-all shadow-lg group flex items-center gap-2"
+                                                    >
+                                                        {currentQuestionIdx < quizData.questions.length - 1 ? (
+                                                            <>Next <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" /></>
+                                                        ) : (
+                                                            <>Finish <Trophy className="w-4 h-4 text-yellow-500" /></>
+                                                        )}
+                                                    </button>
+                                                </div>
                                             </div>
                                         </motion.div>
                                     )}
@@ -355,47 +335,48 @@ export default function QuizPage() {
                                 variants={fadeUpVariant}
                                 initial="hidden"
                                 animate="visible"
-                                className="bg-card/80 backdrop-blur-2xl rounded-xl p-12 md:p-16 shadow-2xl shadow-primary/10 border border-border/50 text-center space-y-10 relative overflow-hidden"
+                                className="bg-card/80 backdrop-blur-2xl rounded-2xl p-8 md:p-12 shadow-2xl border border-border/50 text-center relative overflow-hidden"
                             >
-                                <div className="absolute top-[-20%] left-[50%] -translate-x-1/2 w-[80%] h-[50%] bg-primary/10 blur-[100px] rounded-full pointer-events-none" />
+                                <div className="absolute inset-0 bg-linear-to-br from-primary/5 to-transparent pointer-events-none" />
 
-                                <motion.div
-                                    initial={{ scale: 0 }}
-                                    animate={{ scale: 1, rotate: [0, -10, 10, -10, 0] }}
-                                    transition={{ type: "spring", bounce: 0.6, duration: 1.5 }}
-                                    className="w-28 h-28 bg-linear-to-br from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center mx-auto mb-6 shadow-2xl shadow-yellow-500/30 rotate-3"
-                                >
-                                    <Trophy className="w-14 h-14 text-white drop-shadow-md" />
-                                </motion.div>
-
-                                <div className="space-y-3 relative z-10">
-                                    <h2 className="text-5xl md:text-6xl font-display font-black tracking-tight text-foreground">Session Complete!</h2>
-                                    <p className="text-xl text-muted-foreground font-medium">Knowledge pathways successfully reinforced.</p>
-                                </div>
-
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.3 }}
-                                    className="py-10 border-y border-border/50 bg-background/50 rounded-lg backdrop-blur-sm relative z-10"
-                                >
-                                    <div className="text-8xl md:text-9xl font-display font-black text-transparent bg-clip-text bg-linear-to-r from-primary to-accent mb-4 tracking-tighter">
-                                        {score}<span className="text-4xl md:text-5xl text-muted-foreground/30 mx-2 tracking-normal">/</span>{quizData?.questions.length}
+                                <div className="relative z-10 space-y-8">
+                                    <div className="inline-flex items-center justify-center w-20 h-20 bg-primary/10 rounded-2xl mb-4">
+                                        <Trophy className="w-10 h-10 text-primary" />
                                     </div>
-                                    <div className="text-sm font-bold uppercase tracking-[0.3em] text-foreground/50">Final Score Assessment</div>
-                                </motion.div>
 
-                                <motion.button
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{ delay: 0.6 }}
-                                    onClick={() => { setQuizData(null); setIsFinished(false); }}
-                                    className="w-full relative group overflow-hidden bg-primary text-primary-foreground py-6 rounded-lg font-bold text-xl shadow-[0_15px_40px_-10px_var(--color-primary)] hover:shadow-[0_25px_50px_-10px_var(--color-primary)] transition-all flex items-center justify-center gap-3 active:scale-95 z-10"
-                                >
-                                    <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-shimmer" />
-                                    <RefreshCw className="w-6 h-6 group-hover:rotate-180 transition-transform duration-700 relative z-10" />
-                                    <span className="relative z-10">Start New Quiz</span>
-                                </motion.button>
+                                    <div className="space-y-2">
+                                        <h2 className="text-4xl font-display font-black tracking-tight text-foreground uppercase">Quiz Complete</h2>
+                                        <p className="text-muted-foreground font-medium">Here's how you performed today:</p>
+                                    </div>
+
+                                    <div className="flex items-center justify-center gap-8 py-8">
+                                        <div className="text-center">
+                                            <div className="text-6xl font-display font-black text-primary tracking-tighter">{score}</div>
+                                            <div className="text-[10px] items-center justify-center font-black uppercase tracking-[0.2em] text-muted-foreground mt-1">Score</div>
+                                        </div>
+                                        <div className="h-12 w-px bg-border/50" />
+                                        <div className="text-center">
+                                            <div className="text-6xl font-display font-black text-foreground/40 tracking-tighter">{quizData?.questions.length}</div>
+                                            <div className="text-[10px] items-center justify-center font-black uppercase tracking-[0.2em] text-muted-foreground mt-1">Total</div>
+                                        </div>
+                                    </div>
+
+                                    <div className="p-4 bg-background/50 rounded-xl border border-border/50 text-sm font-medium">
+                                        {score === quizData?.questions.length ? "Perfect score! You've mastered this topic." :
+                                            score > (quizData?.questions.length ?? 0) / 2 ? "Great job! Keep practicing to reach perfection." :
+                                                "Don't give up! Every mistake is a learning opportunity."}
+                                    </div>
+
+                                    <motion.button
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
+                                        onClick={() => { setQuizData(null); setIsFinished(false); }}
+                                        className="w-full bg-foreground text-background py-5 rounded-xl font-black uppercase tracking-[0.2em] text-sm shadow-xl hover:shadow-primary/20 transition-all flex items-center justify-center gap-3"
+                                    >
+                                        <RefreshCw className="w-4 h-4" />
+                                        Start New Quiz
+                                    </motion.button>
+                                </div>
                             </motion.div>
                         )}
                     </AnimatePresence>
