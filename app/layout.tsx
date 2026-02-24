@@ -13,8 +13,11 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "QuizFlow | Personalized Learning",
+  title: "Quizardd | Personalized Learning",
   description: "Generate and take quizzes on any subject instantly.",
+  icons: {
+    icon: '/Quizardd.png',
+  },
 };
 
 export default function RootLayout({

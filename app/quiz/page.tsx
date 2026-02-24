@@ -117,7 +117,8 @@ export default function QuizPage() {
                         <div className="w-10 h-10 rounded-xl bg-card border border-border/50 flex items-center justify-center group-hover:border-primary/50 group-hover:shadow-[0_0_15px_rgba(var(--primary),0.2)] transition-all duration-300">
                             <ArrowLeft className="w-5 h-5 text-foreground group-hover:text-primary transition-colors duration-300 group-hover:-translate-x-0.5" />
                         </div>
-                        <span className="font-display font-bold text-xl tracking-tight hidden sm:block">QuizFlow</span>
+                        <img src="/Quizardd.png" alt="Quizardd Icon" className="w-7 h-7 object-contain group-hover:scale-110 group-hover:rotate-6 transition-transform drop-shadow-[0_0_10px_rgba(var(--primary),0.5)]" />
+                        <span className="font-display font-bold text-xl tracking-tight hidden sm:block">Quizardd</span>
                     </Link>
 
                     {quizData && !isFinished && (

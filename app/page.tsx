@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { Sparkles, Target, Zap, ChevronRight, Atom, Palette, Book, Dna } from "lucide-react";
+import { Target, Zap, ChevronRight, Atom, Palette, Book, Dna, GraduationCap } from "lucide-react";
 import { useState, useEffect } from "react";
 
 // --- Feature 1: Custom Subjects ---
@@ -15,13 +15,13 @@ const FeatureOne = () => {
   ];
 
   return (
-    <div className="relative h-full p-8 rounded-4xl bg-card border border-border overflow-hidden group hover:border-primary/40 transition-all duration-500 shadow-sm hover:shadow-2xl hover:shadow-primary/5">
+    <div className="relative h-full p-8 rounded-lg bg-card border border-border overflow-hidden group hover:border-primary/40 transition-all duration-500 shadow-sm hover:shadow-2xl hover:shadow-primary/5">
       <div className="absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
       <div className="relative z-10 flex flex-col md:flex-row h-full gap-8">
         <div className="flex-1">
-          <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
-            <Sparkles className="w-6 h-6 text-primary" />
+          <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-6">
+            <GraduationCap className="w-6 h-6 text-primary" />
           </div>
           <h3 className="text-3xl font-bold mb-3 tracking-tight">Custom Subjects</h3>
           <p className="text-muted-foreground text-base leading-relaxed max-w-sm">
@@ -29,7 +29,7 @@ const FeatureOne = () => {
           </p>
         </div>
 
-        <div className="flex-1 flex items-center justify-center bg-background/50 rounded-3xl p-6 border border-border/50 relative overflow-hidden min-h-[300px]">
+        <div className="flex-1 flex items-center justify-center bg-background/50 rounded-md p-6 border border-border/50 relative overflow-hidden min-h-[300px]">
 
           {/* Orbit Rings */}
           <div className="absolute w-[260px] h-[260px] rounded-full border border-primary/20 border-dashed animate-[spin_40s_linear_infinite]" />
@@ -95,23 +95,23 @@ const FeatureTwo = () => {
   const s = Math.min(step, 2);
 
   return (
-    <div className="relative h-full p-8 rounded-4xl bg-card border border-border overflow-hidden group hover:border-destructive/40 transition-all duration-500 shadow-sm hover:shadow-2xl hover:shadow-destructive/5 flex flex-col">
-      <div className="absolute inset-0 bg-linear-to-tr from-destructive/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+    <div className="relative h-full p-8 rounded-lg bg-card border border-border overflow-hidden group hover:border-primary/40 transition-all duration-500 shadow-sm hover:shadow-2xl hover:shadow-primary/5 flex flex-col">
+      <div className="absolute inset-0 bg-linear-to-tr from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
       <div className="relative z-10 mb-8">
-        <div className="w-12 h-12 rounded-2xl bg-destructive/10 flex items-center justify-center mb-6">
-          <Zap className="w-6 h-6 text-destructive" />
+        <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-6">
+          <Zap className="w-6 h-6 text-primary" />
         </div>
         <h3 className="text-3xl font-bold mb-3 tracking-tight">Instant Feedback</h3>
         <p className="text-muted-foreground text-base leading-relaxed">Mistakes detected. Immediate correction.</p>
       </div>
 
       <div className="relative z-10 flex-1 flex flex-col items-center justify-center">
-        <div className="w-full max-w-[260px] bg-background/80 backdrop-blur-md border border-border/60 rounded-2xl p-5 shadow-2xl">
-          <div className="text-sm font-bold mb-4 font-mono">What is 2 + 2?</div>
+        <div className="w-full max-w-[260px] bg-background/80 backdrop-blur-md border border-border/60 rounded-lg p-5 shadow-2xl">
+          <div className="text-sm font-bold mb-4 font-mono">Derivative of e^x?</div>
 
           <div className="space-y-2.5">
-            {/* Option 3 */}
+            {/* Option 1 */}
             <motion.div
               animate={
                 s === 1 ? { x: [-3, 3, -3, 3, 0], borderColor: "var(--color-destructive)" } :
@@ -119,28 +119,28 @@ const FeatureTwo = () => {
                     { borderColor: "var(--color-border)" }
               }
               transition={{ duration: 0.4 }}
-              className="border rounded-xl p-3 flex items-center gap-3 text-sm font-medium transition-colors"
+              className="border rounded-md p-3 flex items-center gap-3 text-sm font-medium transition-colors"
             >
               <div className={`w-4 h-4 rounded-full border transition-colors ${s === 1 ? 'border-destructive bg-destructive/20' : 'border-muted-foreground'}`} />
-              3
+              x * e^x
             </motion.div>
 
-            {/* Option 4 */}
+            {/* Option 2 */}
             <motion.div
               animate={
                 s === 2 ? { backgroundColor: "var(--color-primary)", color: "var(--color-primary-foreground)", borderColor: "var(--color-primary)" } :
                   { backgroundColor: "transparent", color: "var(--color-foreground)", borderColor: "var(--color-border)" }
               }
-              className="border rounded-xl p-3 flex items-center gap-3 text-sm font-medium transition-colors"
+              className="border rounded-md p-3 flex items-center gap-3 text-sm font-medium transition-colors"
             >
               <div className={`w-4 h-4 rounded-full border transition-colors ${s === 2 ? 'border-primary-foreground bg-primary-foreground' : 'border-muted-foreground'}`} />
-              4
+              e^x
             </motion.div>
 
-            {/* Option 5 */}
-            <div className="border border-border rounded-xl p-3 flex items-center gap-3 text-sm font-medium opacity-50">
+            {/* Option 3 */}
+            <div className="border border-border rounded-md p-3 flex items-center gap-3 text-sm font-medium opacity-50">
               <div className="w-4 h-4 rounded-full border border-muted-foreground" />
-              5
+              ln(x)
             </div>
           </div>
 
@@ -154,11 +154,11 @@ const FeatureTwo = () => {
                 transition={{ duration: 0.4, type: "spring", stiffness: 200, damping: 20 }}
                 className="overflow-hidden mt-4"
               >
-                <div className="bg-primary/10 p-4 rounded-xl text-xs leading-relaxed border border-primary/20 text-primary">
+                <div className="bg-primary/10 p-4 rounded-md text-xs leading-relaxed border border-primary/20 text-primary">
                   <span className="font-black flex items-center gap-1 mb-1.5 uppercase tracking-wider text-[10px]">
                     <Zap className="w-3 h-3" /> Explanation
                   </span>
-                  Because 2 + 2 equals 4. Addition combines values.
+                  The derivative function of e^x is its own function base, e^x.
                 </div>
               </motion.div>
             )}
@@ -199,11 +199,11 @@ const CounterText = ({ values, duration }: { values: number[], duration: number 
 
 const FeatureThree = () => {
   return (
-    <div className="relative h-full p-8 rounded-4xl bg-card border border-border overflow-hidden group hover:border-secondary/40 transition-all duration-500 shadow-sm hover:shadow-2xl hover:shadow-secondary/5 flex flex-col">
-      <div className="absolute inset-0 bg-linear-to-t from-secondary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+    <div className="relative h-full p-8 rounded-lg bg-card border border-border overflow-hidden group hover:border-primary/40 transition-all duration-500 shadow-sm hover:shadow-2xl hover:shadow-primary/5 flex flex-col">
+      <div className="absolute inset-0 bg-linear-to-t from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
       <div className="relative z-10 flex flex-col md:flex-row h-full gap-8">
-        <div className="flex-1 order-2 md:order-1 flex flex-col gap-8 justify-center items-center bg-background/50 rounded-3xl p-6 border border-border/50">
+        <div className="flex-1 order-2 md:order-1 flex flex-col gap-8 justify-center items-center bg-background/50 rounded-md p-6 border border-border/50">
 
           {/* Graph */}
           <div className="relative h-32 w-full max-w-[240px] border-b-2 border-l-2 border-border flex items-end ml-4 mt-8">
@@ -297,8 +297,8 @@ const FeatureThree = () => {
         </div>
 
         <div className="flex-1 order-1 md:order-2">
-          <div className="w-12 h-12 rounded-2xl bg-secondary/10 flex items-center justify-center mb-6">
-            <Target className="w-6 h-6 text-secondary" />
+          <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-6">
+            <Target className="w-6 h-6 text-primary" />
           </div>
           <h3 className="text-3xl font-bold mb-3 tracking-tight">Goal Oriented</h3>
           <p className="text-muted-foreground text-base leading-relaxed max-w-sm">
@@ -323,43 +323,54 @@ export default function Home() {
       </div>
 
       {/* Modern Brutalist Nav */}
-      <nav className="fixed top-0 w-full z-50 p-6 flex justify-between items-center bg-background/50 backdrop-blur-xl border-b border-border/40">
+      <nav className="fixed top-6 left-1/2 -translate-x-1/2 w-[95%] max-w-7xl z-50 px-8 py-4 flex justify-between items-center bg-background/70 backdrop-blur-xl border border-border/40 rounded-2xl shadow-2xl">
         <Link href="/" className="font-black text-2xl tracking-tighter text-foreground uppercase flex items-center gap-2 group">
-          <span className="w-3 h-3 bg-primary rounded-sm group-hover:bg-accent transition-colors" />
-          QuizFlow
+          <img src="/Quizardd.png" alt="Quizardd Icon" className="w-6 h-6 object-contain group-hover:scale-110 group-hover:rotate-6 transition-transform drop-shadow-[0_0_10px_rgba(var(--primary),0.5)]" />
+          Quizardd
         </Link>
-        <button className="px-6 py-3 bg-primary text-primary-foreground font-bold uppercase tracking-widest text-xs rounded-full hover:scale-105 transition-all shadow-[0_0_20px_rgba(var(--primary),0.3)] hover:shadow-[0_0_30px_rgba(var(--primary),0.5)] border border-primary/50">
-          Get Started
-        </button>
+        <Link href="/quiz">
+          <button className="px-6 py-3 bg-primary text-primary-foreground font-bold uppercase tracking-widest text-xs rounded-lg hover:scale-105 transition-all shadow-[0_0_20px_rgba(var(--primary),0.3)] hover:shadow-[0_0_30px_rgba(var(--primary),0.5)] border border-primary/50 group">
+            Get Started
+          </button>
+        </Link>
       </nav>
 
       {/* Hero Section */}
-      <main className="flex-1 flex flex-col items-center pt-40 pb-20 px-6 z-10 w-full max-w-[1400px] mx-auto">
-        <div className="w-full mb-32 flex flex-col md:flex-row gap-12 items-end justify-between border-b border-border/40 pb-16">
-          <div className="max-w-3xl">
-            <motion.h1
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="text-6xl sm:text-7xl md:text-9xl font-black tracking-tighter leading-[0.85] uppercase"
-            >
-              Learn.<br />
-              <span className="text-primary italic font-serif opacity-90 mix-blend-screen">Evolve.</span><br />
-              Master.
-            </motion.h1>
-          </div>
-          <motion.div
+      <main className="flex-1 flex flex-col items-center pt-48 pb-20 px-6 z-10 w-full max-w-[1400px] mx-auto">
+        <div className="w-full mb-28 flex flex-col items-center text-center gap-6 pb-16">
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter uppercase flex flex-col md:flex-row items-center gap-4 md:gap-8"
+          >
+            <span>Learn.</span>
+            <span className="text-primary italic font-serif opacity-90 drop-shadow-[0_0_30px_rgba(var(--primary),0.4)]">Evolve.</span>
+            <span>Master.</span>
+          </motion.h1>
+          <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.4 }}
-            className="max-w-xs"
+            className="max-w-2xl text-lg md:text-xl font-medium text-muted-foreground mt-4 leading-relaxed"
           >
-            <p className="text-lg font-medium text-muted-foreground mb-6">
-              A high-performance assessment engine disguised as a beautiful canvas. Crafted with uncompromising attention to detail.
-            </p>
-            <button className="group flex items-center gap-2 font-bold tracking-widest uppercase text-xs pb-1 border-b-2 border-primary text-primary hover:text-foreground hover:border-foreground transition-all">
-              Explore Features <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </button>
+            A high-performance assessment engine disguised as a beautiful canvas. Crafted with uncompromising attention to detail.
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="mt-10"
+          >
+            <Link href="/quiz">
+              <button className="group relative overflow-hidden px-10 py-5 bg-foreground text-background border border-border/50 font-bold uppercase tracking-[0.15em] text-sm md:text-base rounded-lg hover:scale-105 transition-all duration-500 shadow-[0_10px_40px_-10px_rgba(var(--foreground),0.3)] hover:shadow-[0_20px_50px_-10px_rgba(var(--primary),0.4)] flex items-center justify-center gap-4">
+                <span className="relative z-10 font-black tracking-[0.2em] group-hover:text-primary-foreground transition-colors duration-500">
+                  ENTER QUIZARDD
+                </span>
+                <ChevronRight className="w-5 h-5 relative z-10 group-hover:text-primary-foreground group-hover:translate-x-2 transition-all duration-500" />
+                <div className="absolute inset-0 bg-primary translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[0.16,1,0.3,1] z-0" />
+              </button>
+            </Link>
           </motion.div>
         </div>
 
