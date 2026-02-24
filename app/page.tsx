@@ -344,9 +344,9 @@ export default function Home() {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter uppercase flex flex-col md:flex-row items-center gap-4 md:gap-8"
           >
-            <span>Learn.</span>
-            <span className="text-primary italic font-serif opacity-90 drop-shadow-[0_0_30px_rgba(var(--primary),0.4)]">Evolve.</span>
-            <span>Master.</span>
+            <span>Learn</span>
+            <span className="text-primary italic font-serif opacity-90 drop-shadow-[0_0_30px_rgba(var(--primary),0.4)]">Evolve</span>
+            <span>Master</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0 }}
@@ -354,7 +354,7 @@ export default function Home() {
             transition={{ duration: 1, delay: 0.4 }}
             className="max-w-2xl text-lg md:text-xl font-medium text-muted-foreground mt-4 leading-relaxed"
           >
-            A high-performance assessment engine disguised as a beautiful canvas. Crafted with uncompromising attention to detail.
+            Generate personalized quizzes in seconds to master any subject. Our AI-powered engine creates tailored assessments that help you learn faster and retain more.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
