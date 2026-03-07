@@ -15,10 +15,10 @@ const FeatureOne = () => {
   ];
 
   return (
-    <div className="relative h-full p-8 rounded-lg bg-card border border-border overflow-hidden group hover:border-primary/40 transition-all duration-500 shadow-sm hover:shadow-2xl hover:shadow-primary/5">
+    <div className="relative h-full p-5 md:p-8 rounded-lg bg-card border border-border overflow-hidden group hover:border-primary/40 transition-all duration-500 shadow-sm hover:shadow-2xl hover:shadow-primary/5">
       <div className="absolute inset-0 bg-linear-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
-      <div className="relative z-10 flex flex-col md:flex-row h-full gap-8">
+      <div className="relative z-10 flex flex-col md:flex-row h-full gap-6 md:gap-8">
         <div className="flex-1">
           <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-6">
             <GraduationCap className="w-6 h-6 text-primary" />
@@ -29,26 +29,26 @@ const FeatureOne = () => {
           </p>
         </div>
 
-        <div className="flex-1 flex items-center justify-center bg-background/50 rounded-md p-6 border border-border/50 relative overflow-hidden min-h-[300px]">
+        <div className="flex-1 flex items-center justify-center bg-background/50 rounded-md p-4 md:p-6 border border-border/50 relative overflow-hidden min-h-[280px] md:min-h-[300px]">
 
           {/* Orbit Rings */}
-          <div className="absolute w-[260px] h-[260px] rounded-full border border-primary/20 border-dashed animate-[spin_40s_linear_infinite]" />
-          <div className="absolute w-[160px] h-[160px] rounded-full border border-primary/30 animate-[spin_30s_linear_infinite_reverse]" />
+          <div className="absolute w-[180px] h-[180px] md:w-[260px] md:h-[260px] rounded-full border border-primary/20 border-dashed animate-[spin_40s_linear_infinite]" />
+          <div className="absolute w-[120px] h-[120px] md:w-[160px] md:h-[160px] rounded-full border border-primary/30 animate-[spin_30s_linear_infinite_reverse]" />
 
           {/* Central Quizardd Component */}
-          <div className="relative z-20 w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center p-3 shadow-[0_0_40px_rgba(var(--primary),0.3)] backdrop-blur-md border border-primary/30">
+          <div className="relative z-20 w-16 h-16 md:w-24 md:h-24 rounded-full bg-primary/10 flex items-center justify-center p-2 md:p-3 shadow-[0_0_40px_rgba(var(--primary),0.3)] backdrop-blur-md border border-primary/30">
             <img src="/Quizardd.png" alt="Quizardd Logo" className="w-full h-full object-contain drop-shadow-xl" />
           </div>
 
           {/* Revolving Solar System */}
           <motion.div
-            className="absolute flex items-center justify-center w-[260px] h-[260px] z-30"
+            className="absolute flex items-center justify-center w-[180px] h-[180px] md:w-[260px] md:h-[260px] z-30"
             animate={{ rotate: 360 }}
             transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
           >
             {subjects.map((sub, i) => {
               const angle = (i * 360) / subjects.length;
-              const radius = 130; // Half of 260px
+              const radius = 90; // Half of 180px
 
               return (
                 <div
@@ -61,11 +61,11 @@ const FeatureOne = () => {
                     transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
                   >
                     <div style={{ transform: `rotate(-${angle}deg)` }}>
-                      <div className="flex items-center gap-2 bg-card p-2 pr-3 rounded-full border border-border shadow-md shadow-primary/5 hover:scale-105 transition-transform cursor-pointer">
-                        <div className="bg-primary/10 p-1.5 rounded-full">
+                      <div className="flex items-center gap-1 md:gap-2 bg-card p-1.5 md:p-2 pr-2 md:pr-3 rounded-full border border-border shadow-md shadow-primary/5 hover:scale-105 transition-transform cursor-pointer">
+                        <div className="bg-primary/10 p-1 rounded-full">
                           {sub.icon}
                         </div>
-                        <span className="text-xs font-bold text-foreground whitespace-nowrap">{sub.title}</span>
+                        <span className="text-[10px] md:text-xs font-bold text-foreground whitespace-nowrap hidden md:inline">{sub.title}</span>
                       </div>
                     </div>
                   </motion.div>
@@ -95,10 +95,10 @@ const FeatureTwo = () => {
   const s = Math.min(step, 2);
 
   return (
-    <div className="relative h-full p-8 rounded-lg bg-card border border-border overflow-hidden group hover:border-primary/40 transition-all duration-500 shadow-sm hover:shadow-2xl hover:shadow-primary/5 flex flex-col">
+    <div className="relative h-full p-5 md:p-8 rounded-lg bg-card border border-border overflow-hidden group hover:border-primary/40 transition-all duration-500 shadow-sm hover:shadow-2xl hover:shadow-primary/5 flex flex-col">
       <div className="absolute inset-0 bg-linear-to-tr from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
-      <div className="relative z-10 mb-8">
+      <div className="relative z-10 mb-4 md:mb-8">
         <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-6">
           <Zap className="w-6 h-6 text-primary" />
         </div>
@@ -107,7 +107,7 @@ const FeatureTwo = () => {
       </div>
 
       <div className="relative z-10 flex-1 flex flex-col items-center justify-center">
-        <div className="w-full max-w-[260px] bg-background/80 backdrop-blur-md border border-border/60 rounded-lg p-5 shadow-2xl">
+        <div className="w-full max-w-[220px] md:max-w-[260px] bg-background/80 backdrop-blur-md border border-border/60 rounded-lg p-4 md:p-5 shadow-2xl">
           <div className="text-sm font-bold mb-4 font-mono">Derivative of e^x?</div>
 
           <div className="space-y-2.5">
@@ -181,7 +181,7 @@ const CounterText = ({ values, duration }: { values: number[], duration: number 
   }, [values.length, duration]);
 
   return (
-    <div className="text-4xl font-black tracking-tighter text-foreground h-10 overflow-hidden">
+    <div className="text-3xl md:text-4xl font-black tracking-tighter text-foreground h-8 md:h-10 overflow-hidden">
       <AnimatePresence mode="popLayout">
         <motion.div
           key={values[idx]}
@@ -199,14 +199,14 @@ const CounterText = ({ values, duration }: { values: number[], duration: number 
 
 const FeatureThree = () => {
   return (
-    <div className="relative h-full p-8 rounded-lg bg-card border border-border overflow-hidden group hover:border-primary/40 transition-all duration-500 shadow-sm hover:shadow-2xl hover:shadow-primary/5 flex flex-col">
+    <div className="relative h-full p-5 md:p-8 rounded-lg bg-card border border-border overflow-hidden group hover:border-primary/40 transition-all duration-500 shadow-sm hover:shadow-2xl hover:shadow-primary/5 flex flex-col">
       <div className="absolute inset-0 bg-linear-to-t from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
-      <div className="relative z-10 flex flex-col md:flex-row h-full gap-8">
-        <div className="flex-1 order-2 md:order-1 flex flex-col gap-8 justify-center items-center bg-background/50 rounded-md p-6 border border-border/50">
+      <div className="relative z-10 flex flex-col md:flex-row h-full gap-6 md:gap-8">
+        <div className="flex-1 order-2 md:order-1 flex flex-col gap-6 md:gap-8 justify-center items-center bg-background/50 rounded-md p-4 md:p-6 border border-border/50">
 
           {/* Graph */}
-          <div className="relative h-32 w-full max-w-[240px] border-b-2 border-l-2 border-border flex items-end ml-4 mt-8">
+          <div className="relative h-28 md:h-32 w-full max-w-[200px] md:max-w-[240px] border-b-2 border-l-2 border-border flex items-end ml-2 md:ml-4 mt-4 md:mt-8">
             <svg className="absolute inset-0 w-full h-full overflow-visible" viewBox="0 0 240 128">
               <motion.path
                 d="M 0,115 Q 60,102 96,77 T 180,51 T 240,25"
@@ -380,7 +380,7 @@ export default function Home() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="w-full grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[400px]"
+          className="w-full grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-min"
         >
           {/* Custom Subjects: spans 2 cols automatically fitting */}
           <div className="md:col-span-2">
